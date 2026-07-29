@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 
 from app.database.init_db import init_db
+from app.api.v1.datasets import router as datasets_router
 
 app = FastAPI(title="InsightAI API")
+app.include_router(datasets_router)
 
 @app.on_event("startup")
 def on_startup():
