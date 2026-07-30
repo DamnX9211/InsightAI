@@ -16,9 +16,36 @@ class ProfilingService:
             column: str(dtype) for column, dtype in df.dtypes.items()
         }
 
+        numeric_statistics = (
+            df.select_dtypes(include="number")
+            .describe()
+            .round(2)
+            .to_dict()
+        )
+
+        categorical_statistics = {}
+
+        categorical_df = df.select_dtypes(
+            include=["object", "category"]
+        )
+
+        for column in categorical_df.columns:
+            series = categorical_df[column]
+
+            categorical_statistics[column] = {
+               "unique": int(series.nunique()),
+               "top": (
+                   str(series.mode().iloc[0]) if not series.mode().empty else None
+               ),
+               "missing": int(series.isnull().sum()),
+               "missing_percentage": round(series.isnull().mean() * 100, 2),
+            }
+
         return {
             "missing_values": missing_values,
             "missing_percentage": missing_percentage,
             "duplicate_rows": duplicate_rows,
-            "column_types": columns_types
+            "column_types": columns_types,
+            "numeric_statistics": numeric_statistics,
+            "categorical_statistics": categorical_statistics,
         }

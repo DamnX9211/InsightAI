@@ -35,7 +35,13 @@ class DatasetService:
         else: 
             df = pd.read_excel(destination)   
 
-        profile = ProfilingService.generate_profile(df)    
+        profile = ProfilingService.generate_profile(df)   
+
+        preview = (
+            df.head(10)
+            .where(pd.notnull(df.head(10)), None)
+            .to_dict(orient="records")
+        ) 
 
         numeric_columns = df.select_dtypes(include="number").columns.tolist()
 
@@ -69,6 +75,7 @@ class DatasetService:
             "numeric_columns": numeric_columns,
             "categorical_columns": categorical_columns,
             "profile": profile,
+            "preview": preview
 }
 
     @staticmethod
