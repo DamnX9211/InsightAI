@@ -11,4 +11,4 @@ router = APIRouter(
 
 @router.post("/upload", response_model=DatasetResponse)
 async def upload_dataset(file: UploadFile, db: Session = Depends(get_db)):
-    return await DatasetService.upload_dataset(file, db)
+    return await DatasetService.upload_dataset(file=file, db=db)

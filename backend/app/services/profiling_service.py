@@ -1,14 +1,20 @@
 import pandas as pd
+from typing import Any
 
 class ProfilingService:
 
     @staticmethod
-    def generate_profile(df: pd.DataFrame) -> dict:
-        missing_values = df.isnull().sum().to_dict()
+    def generate_profile(df: pd.DataFrame) -> dict[str, Any]:
 
-        missing_percentage = (
-            df.isnull().mean().mul(100).round(2).to_dict()
-        )
+        missing_values = {
+            column: int(value)
+            for column, value in df.isnull().sum().items()
+        }
+
+        missing_percentage = {
+            column: float(value)
+            for column, value in ( df.isnull().mean().mul(100).round(2).items())
+        }
 
         duplicate_rows = int(df.duplicated().sum())
 
@@ -16,12 +22,14 @@ class ProfilingService:
             column: str(dtype) for column, dtype in df.dtypes.items()
         }
 
-        numeric_statistics = (
-            df.select_dtypes(include="number")
-            .describe()
-            .round(2)
-            .to_dict()
-        )
+        numeric_df = df.select_dtypes(include="number")
+
+        if not numeric_df.empty and len(numeric_df.columns) > 0:
+            numeric_statistics = (
+                numeric_df.describe().round(2).to_dict()
+            )
+        else:
+            numeric_statistics = {}
 
         categorical_statistics = {}
 
@@ -32,10 +40,12 @@ class ProfilingService:
         for column in categorical_df.columns:
             series = categorical_df[column]
 
+            mode = series.mode()
+
             categorical_statistics[column] = {
                "unique": int(series.nunique()),
                "top": (
-                   str(series.mode().iloc[0]) if not series.mode().empty else None
+                   str(mode.iloc[0]) if not mode.empty else None
                ),
                "missing": int(series.isnull().sum()),
                "missing_percentage": round(series.isnull().mean() * 100, 2),
