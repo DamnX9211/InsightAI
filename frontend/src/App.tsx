@@ -1,11 +1,7 @@
+import Upload from "./pages/Upload";
+
 function App() {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-blue-600">
-        InsightAI
-      </h1>
-    </div>
-  )
+  return <Upload />;
 }
 
-export default App
+export default App;
