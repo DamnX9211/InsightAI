@@ -5,7 +5,7 @@ export interface DatasetProfile {
     column_types: Record<string, number>;
 
     numeric_statistics: Record<string, Record<string, number | string | null >>;
-    categorial_statistics: Record<string, Record<string, number | string | null>>;
+    categorical_statistics: Record<string, Record<string, number | string | null>>;
 }
 
 export interface DatasetResponse {
@@ -17,7 +17,7 @@ export interface DatasetResponse {
     uploaded_at: string;
     column_names: string[];
     numeric_columns: string[];
-    categorial_columns: string[];
+    categorical_columns: string[];
     preview: Record<string, unknown>[];
     profile: DatasetProfile;
 }

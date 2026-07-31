@@ -4,6 +4,8 @@ import axios from "axios";
 import UploadCard from "../components/upload/UploadCard";
 import { uploadDataset } from "../services/datasetService";
 import type { DatasetResponse } from "../types/dataset";
+import DatasetOverview from "../components/dashboard/DatasetOverview";
+import DataPreview from "../components/dashboard/DataPreview";
 
 
 export default function Upload() {
@@ -65,12 +67,10 @@ export default function Upload() {
         )}
 
         {dataset && (
-          <div className="mt-6 max-w-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-            Analysis complete for{" "}
-            <span className="font-medium">
-              {dataset.original_filename}
-            </span>
-          </div>
+            <> 
+            <DatasetOverview dataset={dataset} />
+            <DataPreview dataset={dataset} />
+            </>
         )}
       </div>
     </main>
