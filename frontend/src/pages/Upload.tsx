@@ -6,6 +6,7 @@ import { uploadDataset } from "../services/datasetService";
 import type { DatasetResponse } from "../types/dataset";
 import DatasetOverview from "../components/dashboard/DatasetOverview";
 import DataPreview from "../components/dashboard/DataPreview";
+import ColumnHealth from "../components/dashboard/columnHealth";
 
 
 export default function Upload() {
@@ -70,6 +71,7 @@ export default function Upload() {
             <> 
             <DatasetOverview dataset={dataset} />
             <DataPreview dataset={dataset} />
+            <ColumnHealth dataset={dataset} />
             </>
         )}
       </div>
