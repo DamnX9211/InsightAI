@@ -1,6 +1,6 @@
-# InsightAI
+# DataLens
 
-InsightAI is an AI-powered Business Intelligence platform that allows users to upload business datasets, automatically profile the data, generate dashboards, identify anomalies, detect trends, and interact with the data using natural language.
+DataLens is an AI-powered Business Intelligence platform that allows users to upload business datasets, automatically profile the data, generate dashboards, identify anomalies, detect trends, and interact with the data using natural language.
 
 ## Tech Stack
 
