@@ -5,6 +5,7 @@ class Settings(BaseSettings):
        Every variable defined here will be automatically loaded from the .env file.
     """
     DATABASE_URL: str
+    GEMINI_API_KEY: str
     UPLOAD_DIR: str = "uploads"
     MAX_UPLOAD_SIZE_MB: int = 100
 

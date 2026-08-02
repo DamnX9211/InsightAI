@@ -13,6 +13,11 @@ class DatasetProfile(BaseModel):
     categorical_statistics: dict[str, dict[str, Any]]
 
 
+class Datasethealth(BaseModel):
+    score: int
+    issues: list[str]
+
+
 class DatasetResponse(BaseModel):
     dataset_uuid: str
     original_filename: str
@@ -26,6 +31,11 @@ class DatasetResponse(BaseModel):
     categorical_columns: list[str]
     preview: list[dict[str, Any]]
     profile: DatasetProfile
+    health: Datasethealth
+    summary: str
+
+
+
 
 
 

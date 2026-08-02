@@ -35,7 +35,7 @@ class ProfilingService:
         }
 
     @staticmethod
-    def get_missing_percentages(df: pd.DataFrame) -> dict[str, float]:
+    def get_missing_percentage(df: pd.DataFrame) -> dict[str, float]:
         return {
             column: float(value)
             for column, value in (
@@ -130,8 +130,8 @@ class ProfilingService:
             "missing_values":
                 ProfilingService.get_missing_values(df),
 
-            "missing_percentages":
-                ProfilingService.get_missing_percentages(df),
+            "missing_percentage":
+                ProfilingService.get_missing_percentage(df),
 
             "duplicate_rows":
                 ProfilingService.get_duplicate_rows(df),

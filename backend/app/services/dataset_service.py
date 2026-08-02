@@ -6,6 +6,8 @@ from app.models.dataset import Dataset
 from app.services.storage_service import StorageService
 from app.services.dataframe_service import DataFrameService
 from app.services.profiling_service import ProfilingService
+from app.services.health_score_service import HealthScoreService
+from app.services.ai_service import AIService
 
 
 class DatasetService:
@@ -31,12 +33,21 @@ class DatasetService:
 
         categorical_columns = ProfilingService.get_categorical_columns(df)
 
+        # Preview
+        preview = ProfilingService.get_preview(df)
 
         # Dataset profile
         profile = ProfilingService.generate_profile(df)
 
-        # Preview
-        preview = ProfilingService.get_preview(df)
+        health = HealthScoreService.calculate_health_score(profile)
+
+        summary = AIService.generate_summary(
+            {
+                "health": health,
+                "profile": profile,
+            }
+        )
+
 
         # Save metadata to database
         dataset = Dataset(
@@ -63,4 +74,6 @@ class DatasetService:
             "categorical_columns": categorical_columns,
             "preview": preview,
             "profile": profile,
+            "health": health,
+            "summary": summary,
         }
