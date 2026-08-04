@@ -7,6 +7,8 @@ import type { DatasetResponse } from "../types/dataset";
 import DatasetOverview from "../components/dashboard/DatasetOverview";
 import DataPreview from "../components/dashboard/DataPreview";
 import ColumnHealth from "../components/dashboard/columnHealth";
+import HealthScoreCard from "../components/dashboard/HealthScoreCard";
+import AISummaryCard from "../components/dashboard/AISummaryCard";
 
 
 export default function Upload() {
@@ -43,7 +45,7 @@ export default function Upload() {
       <div className="mx-auto max-w-6xl px-6 py-10">
         <header className="mb-14">
           <p className="text-sm font-medium text-slate-500">
-            InsightAI
+            DataLens &mdash; Data Analysis and Profiling Tool
           </p>
 
           <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
@@ -68,12 +70,35 @@ export default function Upload() {
         )}
 
         {dataset && (
-            <> 
-            <DatasetOverview dataset={dataset} />
-            <DataPreview dataset={dataset} />
-            <ColumnHealth dataset={dataset} />
-            </>
-        )}
+    <>
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+
+            <div className="lg:col-span-1">
+
+                <HealthScoreCard
+                    score={dataset.health.score}
+                />
+
+            </div>
+
+            <div className="lg:col-span-2">
+
+                <AISummaryCard
+                    summary={dataset.summary}
+                />
+
+            </div>
+
+        </div>
+
+        <DatasetOverview dataset={dataset} />
+
+        <ColumnHealth dataset={dataset} />
+
+        <DataPreview dataset={dataset} />
+
+    </>
+)}
       </div>
     </main>
   );

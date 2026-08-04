@@ -41,12 +41,18 @@ class DatasetService:
 
         health = HealthScoreService.calculate_health_score(profile)
 
-        summary = AIService.generate_summary(
-            {
-                "health": health,
-                "profile": profile,
-            }
+        ai_payload = AIService.build_ai_payload(
+            dataset={
+                "rows": len(df),
+                "columns": len(df.columns),
+                "numeric_columns": numeric_columns,
+                "categorical_columns": categorical_columns,
+            },
+            profile=profile,
+            health=health
         )
+
+        summary = AIService.generate_summary(ai_payload)
 
 
         # Save metadata to database
