@@ -9,6 +9,16 @@ export interface DatasetProfile {
 }
 
 export interface DatasetResponse {
+    health: {
+        score: number;
+        issues: string[];
+    };
+    summary: {
+        overall_quality: string;
+        ml_readiness: string;
+        critical_issues: string[];
+        recommendations: string[];
+    }
     dataset_uuid: string;
     original_filename: string;
     rows: number;

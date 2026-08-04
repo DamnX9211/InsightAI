@@ -3,6 +3,8 @@ from typing import Any
 
 from pydantic import BaseModel
 
+from app.schemas.ai import AISummary
+
 
 class DatasetProfile(BaseModel):
     missing_values: dict[str, int]  
@@ -32,7 +34,7 @@ class DatasetResponse(BaseModel):
     preview: list[dict[str, Any]]
     profile: DatasetProfile
     health: Datasethealth
-    summary: str
+    summary: AISummary
 
 
 
